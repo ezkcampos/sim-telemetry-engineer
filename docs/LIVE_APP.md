@@ -1,4 +1,4 @@
-# Live Deployment Map (v0.1.0)
+# Live Deployment Map (v0.1.1)
 
 O app CSP em `assetto_corsa/apps/lua/sim_telemetry_engineer` é o primeiro corte do
 mapa de deploy ao vivo. Ele é independente do dashboard Streamlit e roda dentro do
@@ -19,8 +19,8 @@ O app é estritamente read-only. Ele não altera nem salva o setup.
 
 ## Instalação da versão estável
 
-Baixe `sim-telemetry-engineer-v0.1.0.zip` na
-[GitHub Release v0.1.0](https://github.com/ezkcampos/sim-telemetry-engineer/releases/tag/v0.1.0),
+Baixe `sim-telemetry-engineer-v0.1.1.zip` na
+[GitHub Release v0.1.1](https://github.com/ezkcampos/sim-telemetry-engineer/releases/tag/v0.1.1),
 extraia a pasta `sim_telemetry_engineer` e coloque-a em `assettocorsa/apps/lua`.
 
 ## Instalação para desenvolvimento
