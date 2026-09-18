@@ -47,7 +47,7 @@ def synthetic_csv() -> bytes:
 
 class TelemetryCoreTest(unittest.TestCase):
     def test_version(self):
-        self.assertEqual(__version__, "0.0.1")
+        self.assertEqual(__version__, "0.1.0")
 
     def test_csv_and_laps(self):
         sessions = parse_upload("sample.csv", synthetic_csv())

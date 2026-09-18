@@ -28,7 +28,7 @@ Voltas, energia, delta e diagnóstico
 
 O upload manual continua disponível para arquivos históricos ou enviados por outra pessoa.
 
-## Caminho ao vivo read-only (v0.1.0-dev)
+## Caminho ao vivo read-only (v0.1.0)
 
 O companion ao vivo é um app Lua próprio para CSP. Ele não importa código nem assets do
 Telemetrick, MapDisplay ou VRC:

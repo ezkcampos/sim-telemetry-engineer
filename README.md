@@ -5,9 +5,7 @@ Assetto Corsa. A primeira versão transforma exports do Telemetrick em comparaç
 voltas, leitura de energia e diagnósticos objetivos — sem depender de IA ou serviços
 externos.
 
-> Estado estável: **v0.0.1 — protótipo funcional de análise pós-sessão**
->
-> Em `dev`: **v0.1.0-dev — parser de setup e mapa de deploy ao vivo**
+> Estado estável: **v0.1.0 — análise pós-sessão, parser de setup e mapa ao vivo read-only**
 
 ## Por que este projeto existe
 
@@ -69,7 +67,7 @@ código. Veja [ARCHITECTURE.md](ARCHITECTURE.md) para as decisões de integraç�
 
 ## Mapa ao vivo em desenvolvimento
 
-A branch `dev` inclui um app Lua read-only para CSP. Ele desenha a pista diretamente da
+A v0.1.0 inclui um app Lua read-only para CSP. Ele desenha a pista diretamente da
 spline do Assetto Corsa, acompanha o carro e lê o setup atual pelos IDs semânticos expostos
 pelo carro. Não há dependência de imagens do MapDisplay nem redistribuição de código VRC.
 
@@ -93,8 +91,7 @@ confirmação.
 ## Roadmap
 
 - **0.0.x:** estabilizar importação, métricas e comparação de sessões.
-- **0.1.0:** ler `.ini/.sp`, reconhecer parâmetros VRC e inspecionar o mapa de energia
-  ao vivo em modo read-only.
+- **0.1.x:** validar todos os splits/IDs VRC e estabilizar o mapa de energia ao vivo.
 - **0.2.0:** validar, simular e gerar uma cópia de mapa/setup por regras transparentes.
 - **0.3.0:** companion ao vivo por adaptador próprio, sem acoplamento ao Telemetrick.
 - **Futuro:** referências FastF1, histórico local e explicações assistidas por IA.

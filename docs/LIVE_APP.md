@@ -1,4 +1,4 @@
-# Live Deployment Map (v0.1.0-dev)
+# Live Deployment Map (v0.1.0)
 
 O app CSP em `assetto_corsa/apps/lua/sim_telemetry_engineer` é o primeiro corte do
 mapa de deploy ao vivo. Ele é independente do dashboard Streamlit e roda dentro do
