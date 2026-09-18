@@ -6,6 +6,12 @@ Todas as mudanças relevantes deste projeto serão registradas aqui. O formato s
 
 ## [Unreleased]
 
+### Adicionado
+
+- Empacotamento reproduzível do app Lua em um ZIP instalável publicado nos assets da
+  GitHub Release.
+- Links de download, badges de release e instruções de instalação no README.
+
 ### Planejado
 
 - Editor seguro que gere uma cópia de setups `.ini` e presets `.sp`.

@@ -1,5 +1,8 @@
 # FA26 Telemetry Engineer
 
+[![GitHub Release](https://img.shields.io/github/v/release/ezkcampos/sim-telemetry-engineer?display_name=tag)](https://github.com/ezkcampos/sim-telemetry-engineer/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/ezkcampos/sim-telemetry-engineer/total)](https://github.com/ezkcampos/sim-telemetry-engineer/releases)
+
 Analisador local e determinístico de telemetria para o VRC Formula Alpha 2026 no
 Assetto Corsa. A primeira versão transforma exports do Telemetrick em comparação de
 voltas, leitura de energia e diagnósticos objetivos — sem depender de IA ou serviços
@@ -71,7 +74,22 @@ A v0.1.0 inclui um app Lua read-only para CSP. Ele desenha a pista diretamente d
 spline do Assetto Corsa, acompanha o carro e lê o setup atual pelos IDs semânticos expostos
 pelo carro. Não há dependência de imagens do MapDisplay nem redistribuição de código VRC.
 
-Para instalar a cópia de desenvolvimento:
+### Download do app
+
+Baixe o pacote pronto da versão estável:
+
+**[Baixar Sim Telemetry Engineer v0.1.0](https://github.com/ezkcampos/sim-telemetry-engineer/releases/download/v0.1.0/sim-telemetry-engineer-v0.1.0.zip)**
+
+Extraia a pasta `sim_telemetry_engineer` do ZIP para:
+
+```text
+<pasta do Assetto Corsa>\apps\lua\sim_telemetry_engineer
+```
+
+Depois inicie uma sessão com CSP e abra **Sim Telemetry Engineer** na barra de apps à
+direita. O app Lua não aparece na lista de Python Apps do Content Manager.
+
+Para instalar a cópia do repositório durante o desenvolvimento:
 
 ```powershell
 .\scripts\install_ac_app.ps1
@@ -108,6 +126,7 @@ assetto_corsa/apps/lua/  App CSP do mapa ao vivo
 tests/                   Testes unitários
 scripts/check_version.py Verificação da versão
 scripts/install_ac_app.ps1 Instalação local do app CSP
+scripts/package_ac_app.ps1 Geração do ZIP de release
 docs/                    Documentação pública
 VERSION                  Fonte de versão em runtime
 ```
