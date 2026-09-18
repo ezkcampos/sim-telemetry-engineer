@@ -10,7 +10,7 @@ Ele mostra a pista, a posição do carro e as zonas de energia reconhecidas no s
 Tudo funciona localmente e em modo somente leitura: o app não modifica o carro nem salva
 alterações no seu setup.
 
-> Versão atual: **v0.1.0**
+> Versão atual: **v0.1.1**
 
 ## O que aparece no jogo
 
@@ -33,7 +33,7 @@ quem deseja comparar voltas e arquivos exportados pelo Telemetrick.
 
 ### 1. Baixe o app
 
-**[Baixar Sim Telemetry Engineer v0.1.0](https://github.com/ezkcampos/sim-telemetry-engineer/releases/download/v0.1.0/sim-telemetry-engineer-v0.1.0.zip)**
+**[Baixar Sim Telemetry Engineer v0.1.1](https://github.com/ezkcampos/sim-telemetry-engineer/releases/download/v0.1.1/sim-telemetry-engineer-v0.1.1.zip)**
 
 ### 2. Extraia a pasta
 
@@ -67,7 +67,7 @@ O app é Lua e, por isso, não aparece na página **Python Apps** do Content Man
 
 ## Estado atual
 
-A v0.1.0 já teve o carregamento, desenho da pista, posição do carro e leitura básica de
+A versão atual já teve o carregamento, desenho da pista, posição do carro e leitura básica de
 KERS validados no jogo. O reconhecimento das zonas de energia ainda está sendo testado
 com diferentes setups e versões do Formula Alpha 2026. Se o app mostrar `0 zone(s)`, use
 **Diagnostics → Copy diagnostics** e envie o texto em uma issue.

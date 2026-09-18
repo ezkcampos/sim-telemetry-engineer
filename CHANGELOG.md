@@ -6,23 +6,26 @@ Todas as mudanças relevantes deste projeto serão registradas aqui. O formato s
 
 ## [Unreleased]
 
-### Adicionado
-
-- Empacotamento reproduzível do app Lua em um ZIP instalável publicado nos assets da
-  GitHub Release.
-- Links de download, badges de release e instruções de instalação no README.
-
-### Alterado
-
-- README reorganizado para jogadores, com instalação do app Lua sem Python e detalhes
-  técnicos movidos para documentos específicos.
-
 ### Planejado
 
 - Editor seguro que gere uma cópia de setups `.ini` e presets `.sp`.
 - Validação visual completa dos 24 splits e das variações de IDs do Formula Alpha 2026.
 - Validador de limites, sobreposições, rampas e orçamento de energia.
 - Geração de uma cópia do setup com alterações explicáveis e confirmação do usuário.
+
+## [0.1.1] - 2026-09-18
+
+### Adicionado
+
+- Empacotamento reproduzível do app Lua em um ZIP instalável publicado nos assets da
+  GitHub Release.
+- Links de download, badges de release e instruções de instalação no README.
+- Documentos separados para análise pós-sessão e desenvolvimento.
+
+### Alterado
+
+- README reorganizado para jogadores, com instalação do app Lua sem Python e detalhes
+  técnicos movidos para documentos específicos.
 
 ## [0.1.0] - 2026-09-18
 
