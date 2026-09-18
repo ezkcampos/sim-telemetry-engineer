@@ -1,154 +1,104 @@
-# FA26 Telemetry Engineer
+# Sim Telemetry Engineer
 
 [![GitHub Release](https://img.shields.io/github/v/release/ezkcampos/sim-telemetry-engineer?display_name=tag)](https://github.com/ezkcampos/sim-telemetry-engineer/releases/latest)
 [![Downloads](https://img.shields.io/github/downloads/ezkcampos/sim-telemetry-engineer/total)](https://github.com/ezkcampos/sim-telemetry-engineer/releases)
 
-Analisador local e determinístico de telemetria para o VRC Formula Alpha 2026 no
-Assetto Corsa. A primeira versão transforma exports do Telemetrick em comparação de
-voltas, leitura de energia e diagnósticos objetivos — sem depender de IA ou serviços
-externos.
+Um app para acompanhar o mapa da pista e o uso de energia do VRC Formula Alpha 2026
+diretamente no Assetto Corsa.
 
-> Estado estável: **v0.1.0 — análise pós-sessão, parser de setup e mapa ao vivo read-only**
+Ele mostra a pista, a posição do carro e as zonas de energia reconhecidas no setup atual.
+Tudo funciona localmente e em modo somente leitura: o app não modifica o carro nem salva
+alterações no seu setup.
 
-## Por que este projeto existe
+> Versão atual: **v0.1.0**
 
-Um tempo de volta, sozinho, não explica se a diferença veio do piloto, da aerodinâmica,
-dos pneus ou do mapa de energia. Este projeto começa separando esses sinais e evoluirá
-para um engenheiro de setup que lê, valida e propõe mapas de ERS por regras explícitas.
+## O que aparece no jogo
 
-## O que a v0.0.1 entrega
+- mapa da pista gerado pelo próprio Assetto Corsa/CSP;
+- posição do carro em tempo real;
+- estratégia e split ativos quando disponibilizados pelo carro;
+- carga do KERS/ERS e potência elétrica quando os canais estão disponíveis;
+- trechos de deploy, clipping e super-clipping reconhecidos no setup;
+- diagnóstico simples quando a versão do carro usa IDs ainda desconhecidos.
 
-- Detecta automaticamente a pasta de exports do Telemetrick no Windows.
-- Importa arquivos `.csv` e `.zip` manualmente como alternativa.
-- Compara várias sessões e permite identificá-las como `Puro`, `Galeria` ou `ERS isolado`.
-- Detecta voltas completas, válidas e invalidadas.
-- Calcula melhor volta, mediana, velocidade máxima e consumo de combustível.
-- Analisa SoC, deploy, regeneração, clipping e super-clipping quando os canais existem.
-- Mostra delta acumulado e velocidade por distância entre duas voltas.
-- Continua com análise parcial quando canais estendidos do VRC não foram exportados.
-- Exporta um resumo comparativo em CSV.
+## Preciso instalar Python?
 
-## Início rápido no Windows
+**Não.** Para usar o mapa dentro do Assetto Corsa, basta instalar o app Lua e ter o
+Custom Shaders Patch atualizado com suporte a apps Lua.
 
-Pré-requisito: Python 3.11 ou superior.
+Python é necessário apenas para a ferramenta opcional de análise pós-sessão, voltada a
+quem deseja comparar voltas e arquivos exportados pelo Telemetrick.
 
-1. Extraia o ZIP do projeto.
-2. Execute `run_windows.bat`.
-3. Aguarde o navegador abrir.
-4. Confirme a pasta detectada e selecione as sessões.
+## Download e instalação
 
-Na primeira execução, o script cria `.venv` e instala as dependências. Também é possível
-iniciar manualmente:
-
-```powershell
-py -3 -m venv .venv
-.venv\Scripts\activate
-python -m pip install -r requirements.txt
-python -m streamlit run app.py
-```
-
-O caminho automático esperado segue este padrão:
-
-```text
-Documents\Assetto Corsa\apps\telemetrick\exported\<piloto>\<carro>\<pista>
-```
-
-Se ele não for encontrado, escolha **Upload manual** e envie o CSV ou ZIP.
-
-## Arquitetura atual
-
-```mermaid
-flowchart TD
-    AC["Assetto Corsa + CSP"] --> TM["Telemetrick"]
-    TM --> CSV["CSV ou ZIP exportado"]
-    CSV --> CORE["Parser e análise determinística"]
-    CORE --> UI["Dashboard Streamlit"]
-```
-
-O projeto usa os arquivos que o Telemetrick já exporta e não modifica nem redistribui seu
-código. Veja [ARCHITECTURE.md](ARCHITECTURE.md) para as decisões de integração.
-
-## Mapa ao vivo em desenvolvimento
-
-A v0.1.0 inclui um app Lua read-only para CSP. Ele desenha a pista diretamente da
-spline do Assetto Corsa, acompanha o carro e lê o setup atual pelos IDs semânticos expostos
-pelo carro. Não há dependência de imagens do MapDisplay nem redistribuição de código VRC.
-
-### Download do app
-
-Baixe o pacote pronto da versão estável:
+### 1. Baixe o app
 
 **[Baixar Sim Telemetry Engineer v0.1.0](https://github.com/ezkcampos/sim-telemetry-engineer/releases/download/v0.1.0/sim-telemetry-engineer-v0.1.0.zip)**
 
-Extraia a pasta `sim_telemetry_engineer` do ZIP para:
+### 2. Extraia a pasta
+
+Coloque a pasta `sim_telemetry_engineer` do ZIP dentro de:
 
 ```text
-<pasta do Assetto Corsa>\apps\lua\sim_telemetry_engineer
+<pasta do Assetto Corsa>\apps\lua\
 ```
 
-Depois inicie uma sessão com CSP e abra **Sim Telemetry Engineer** na barra de apps à
-direita. O app Lua não aparece na lista de Python Apps do Content Manager.
-
-Para instalar a cópia do repositório durante o desenvolvimento:
-
-```powershell
-.\scripts\install_ac_app.ps1
-```
-
-Os detalhes, o roteiro de validação e os limites atuais estão em
-[docs/LIVE_APP.md](docs/LIVE_APP.md).
-
-## Princípio determinístico
-
-Métricas, validações e futuras alterações de setup devem ser reproduzíveis. A camada
-determinística será responsável por interpretar parâmetros, calcular janelas por distância,
-detectar conflitos e escrever uma cópia do setup. Uma camada de IA poderá explicar o
-resultado em linguagem natural, mas não será a fonte dos cálculos nem editará arquivos sem
-confirmação.
-
-## Roadmap
-
-- **0.0.x:** estabilizar importação, métricas e comparação de sessões.
-- **0.1.x:** validar todos os splits/IDs VRC e estabilizar o mapa de energia ao vivo.
-- **0.2.0:** validar, simular e gerar uma cópia de mapa/setup por regras transparentes.
-- **0.3.0:** companion ao vivo por adaptador próprio, sem acoplamento ao Telemetrick.
-- **Futuro:** referências FastF1, histórico local e explicações assistidas por IA.
-
-O roadmap expressa intenção, não funcionalidade já disponível. As mudanças publicadas ficam
-em [CHANGELOG.md](CHANGELOG.md).
-
-## Estrutura
+Na instalação padrão da Steam, o resultado costuma ser:
 
 ```text
-app.py                   Interface Streamlit
-telemetry/               Parser, descoberta e análises
-assetto_corsa/apps/lua/  App CSP do mapa ao vivo
-tests/                   Testes unitários
-scripts/check_version.py Verificação da versão
-scripts/install_ac_app.ps1 Instalação local do app CSP
-scripts/package_ac_app.ps1 Geração do ZIP de release
-docs/                    Documentação pública
-VERSION                  Fonte de versão em runtime
+C:\Program Files (x86)\Steam\steamapps\common\assettocorsa\apps\lua\sim_telemetry_engineer
 ```
 
-## Desenvolvimento
+### 3. Abra no jogo
 
-```powershell
-python -m pip install -r requirements.txt
-python scripts/check_version.py
-python -m unittest discover -s tests -v
-python -m streamlit run app.py
-```
+1. Inicie uma sessão com o Custom Shaders Patch.
+2. Mova o mouse para a borda direita da tela.
+3. Abra a lista de apps.
+4. Selecione **Sim Telemetry Engineer**.
 
-O projeto segue Semantic Versioning. `main` recebe releases estáveis, `dev` integra o
-desenvolvimento, e branches de feature/fix nascem de `dev`. A política e o checklist de
-release estão em [docs/VERSIONING.md](docs/VERSIONING.md).
+O app é Lua e, por isso, não aparece na página **Python Apps** do Content Manager.
 
-## Privacidade e limites
+## Cores do mapa
 
-O processamento é local; nenhum upload externo é necessário. A versão estável v0.0.1 é
-uma ferramenta pós-sessão. O app em desenvolvimento lê dados ao vivo em modo read-only,
-mas ainda não altera setups e não usa FastF1 ou IA.
+- **Verde — Deploy:** trecho em que a energia elétrica é entregue.
+- **Laranja — Clipping:** trecho em que a entrega começa a ser limitada.
+- **Vermelho — Super-clipping:** limitação mais intensa da entrega.
+- **Azul:** posição atual do carro.
 
-VRC, Formula Alpha, Assetto Corsa e Telemetrick pertencem aos seus respectivos autores. Este
-é um projeto independente e não afiliado.
+## Estado atual
+
+A v0.1.0 já teve o carregamento, desenho da pista, posição do carro e leitura básica de
+KERS validados no jogo. O reconhecimento das zonas de energia ainda está sendo testado
+com diferentes setups e versões do Formula Alpha 2026. Se o app mostrar `0 zone(s)`, use
+**Diagnostics → Copy diagnostics** e envie o texto em uma issue.
+
+## Análise pós-sessão opcional
+
+O repositório também contém um dashboard para comparar voltas, velocidade, combustível,
+SoC, deploy e regeneração a partir dos exports do Telemetrick. Essa ferramenta é separada
+do app do jogo e utiliza Python.
+
+Veja [Análise pós-sessão](docs/POST_SESSION_DASHBOARD.md) para instalação e uso.
+
+## Mais detalhes
+
+- [Funcionamento e limitações do app Lua](docs/LIVE_APP.md)
+- [Análise pós-sessão com Python](docs/POST_SESSION_DASHBOARD.md)
+- [Arquitetura e integrações](ARCHITECTURE.md)
+- [Desenvolvimento e empacotamento](docs/DEVELOPMENT.md)
+- [Histórico de mudanças](CHANGELOG.md)
+
+## Próximos passos
+
+- validar os 24 splits e as variações de IDs do Formula Alpha 2026;
+- melhorar o diagnóstico das zonas de energia;
+- validar limites, sobreposições e orçamento de energia;
+- futuramente gerar uma cópia segura do setup, sempre com confirmação do usuário.
+
+## Privacidade
+
+O processamento acontece no computador do jogador. O app não envia telemetria, setups ou
+dados pessoais para serviços externos.
+
+VRC, Formula Alpha, Assetto Corsa, Custom Shaders Patch e Telemetrick pertencem aos seus
+respectivos autores. Este é um projeto independente e não afiliado.
