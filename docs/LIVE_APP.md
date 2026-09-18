@@ -17,6 +17,12 @@ Assetto Corsa.
 
 O app é estritamente read-only. Ele não altera nem salva o setup.
 
+## Instalação da versão estável
+
+Baixe `sim-telemetry-engineer-v0.1.0.zip` na
+[GitHub Release v0.1.0](https://github.com/ezkcampos/sim-telemetry-engineer/releases/tag/v0.1.0),
+extraia a pasta `sim_telemetry_engineer` e coloque-a em `assettocorsa/apps/lua`.
+
 ## Instalação para desenvolvimento
 
 No PowerShell, a partir da raiz do repositório:
