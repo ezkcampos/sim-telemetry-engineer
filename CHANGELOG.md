@@ -12,6 +12,11 @@ Todas as mudanças relevantes deste projeto serão registradas aqui. O formato s
   GitHub Release.
 - Links de download, badges de release e instruções de instalação no README.
 
+### Alterado
+
+- README reorganizado para jogadores, com instalação do app Lua sem Python e detalhes
+  técnicos movidos para documentos específicos.
+
 ### Planejado
 
 - Editor seguro que gere uma cópia de setups `.ini` e presets `.sp`.
