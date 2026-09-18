@@ -8,11 +8,34 @@ Todas as mudanças relevantes deste projeto serão registradas aqui. O formato s
 
 ### Planejado
 
-- Leitor determinístico de setups `.ini` e presets `.sp`.
-- Visualização dos trechos de deploy, clipping e super-clipping por distância.
+- Editor seguro que gere uma cópia de setups `.ini` e presets `.sp`.
+- Validação visual completa dos 24 splits e das variações de IDs do Formula Alpha 2026.
 - Validador de limites, sobreposições, rampas e orçamento de energia.
 - Geração de uma cópia do setup com alterações explicáveis e confirmação do usuário.
-- Adaptador ao vivo independente do código do Telemetrick.
+
+## [0.1.0] - 2026-09-18
+
+### Adicionado
+
+- Primeiro corte read-only do app Lua para CSP com mapa da pista, posição ao vivo e
+  sobreposição das zonas reconhecidas de deploy, clipping e super-clipping.
+- Leitura dos valores atuais de setup por IDs semânticos, sem depender dos nomes opacos
+  `CUSTOM_SCRIPT_ITEM_*`.
+- Adaptador opcional para estratégia, split, potência traseira e SoC da interface CAN VRC.
+- Diagnóstico copiável de IDs de energia ainda não reconhecidos.
+- Parser lossless de setups `.ini/.sp` e diff semântico determinístico.
+- Script PowerShell para instalar o app no Assetto Corsa em ambiente de desenvolvimento.
+
+### Alterado
+
+- Definido o fluxo de desenvolvimento com `main` estável, `dev` para integração e
+  branches de feature/fix criadas a partir de `dev`.
+
+### Limitações conhecidas
+
+- O carregamento do app, a spline, a posição do carro e o fallback de KERS foram
+  validados no jogo; as zonas de energia e os canais CAN avançados ainda precisam de uma
+  sessão em movimento para validar os IDs da versão instalada do Formula Alpha 2026.
 
 ## [0.0.1] - 2026-09-18
 

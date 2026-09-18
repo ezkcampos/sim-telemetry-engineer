@@ -4,7 +4,13 @@ import io
 import unittest
 import zipfile
 
-from telemetry import __version__, analyze_session, parse_upload
+from telemetry import (
+    __version__,
+    analyze_session,
+    parse_setup,
+    parse_upload,
+    semantic_setup_diff,
+)
 
 
 def synthetic_csv() -> bytes:
@@ -41,7 +47,7 @@ def synthetic_csv() -> bytes:
 
 class TelemetryCoreTest(unittest.TestCase):
     def test_version(self):
-        self.assertEqual(__version__, "0.0.1")
+        self.assertEqual(__version__, "0.1.0")
 
     def test_csv_and_laps(self):
         sessions = parse_upload("sample.csv", synthetic_csv())
@@ -57,6 +63,32 @@ class TelemetryCoreTest(unittest.TestCase):
             archive.writestr("folder/sample.csv", synthetic_csv())
         sessions = parse_upload("sample.zip", buffer.getvalue())
         self.assertEqual(len(sessions), 1)
+
+    def test_setup_parser_is_byte_lossless(self):
+        payload = (
+            b"; preserved comment\r\n"
+            b"[CUSTOM_SCRIPT_ITEM_1]\r\n"
+            b"ID=STRAT_1_K_DEPLOYMENT_1_END\r\n"
+            b"VALUE=1450\r\n"
+            b"UNKNOWN = keep me exactly\r\n"
+        )
+        setup = parse_setup(payload)
+        self.assertEqual(setup.to_bytes(), payload)
+        self.assertEqual(setup.get("custom_script_item_1", "value"), "1450")
+        self.assertEqual(setup.encoding, "utf-8")
+
+    def test_setup_semantic_diff(self):
+        before = parse_setup(
+            b"[ERS]\nDEPLOYMENT=1200\n[TYRES]\nPRESSURE_LF=24.0\n"
+        )
+        after = parse_setup(
+            b"[ERS]\nDEPLOYMENT=1350\n[TYRES]\nPRESSURE_LF=24.0\n"
+        )
+        changes = semantic_setup_diff(before, after)
+        self.assertEqual(len(changes), 1)
+        self.assertEqual(changes[0].before, "1200")
+        self.assertEqual(changes[0].after, "1350")
+        self.assertEqual(changes[0].category, "energy")
 
 
 if __name__ == "__main__":
